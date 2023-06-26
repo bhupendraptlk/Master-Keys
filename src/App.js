@@ -10,7 +10,7 @@ function App() {
   const NOW_IN_MS = new Date().getTime();
   const countdownTarget = NOW_IN_MS + TARGET_IN_MS;
   const [start,setStart] = useState(false);
-  const [minutes,seconds,disabled] = useCountdown(new Date(countdownTarget))
+  const [minutes,seconds,disabled] = useCountdown(new Date(countdownTarget),start)
   const [status, setStatus] = useState(true);
   const [words, setWords] = useState();
   const [correct, setCorrect] = useState(0);
@@ -23,6 +23,7 @@ function App() {
     const words = Helpers(wordLength, wordCount);
     const stringOfWords = words.join(" ");
     setWords(stringOfWords);
+    setStart(false);
     setReset(!reset);
   };
   useEffect(() => {
@@ -56,7 +57,7 @@ function App() {
                 <Timer value={minutes} type="minutes" isDanger={minutes <= 2} />
                 <p className="mx-3 my-0">:</p>
                 <Timer value={seconds} type="seconds" isDanger={minutes <=2 && seconds <= 60} />
-                {/* <button onClick={()=>setStart(true)}>Start</button> */}
+                <button className="btn btn-primary start-btn" onClick={()=>setStart(true)}>Start</button>
               </div>
               <div className="heading-wrapper d-flex align-items-center justify-content-between">
                 <h4 className="text-center m-0">Accuracy : {(minutes==0 && seconds==0) ? (accuracy+"%") : "Awaited"}</h4>

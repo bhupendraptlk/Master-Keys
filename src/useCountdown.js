@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 
-const useCountdown = (countdownTarget) => {     //Target time in the form of date and time
+const useCountdown = (countdownTarget,start) => {     //Target time in the form of date and time
   const countdownTime = new Date(countdownTarget).getTime();      //Target time only
   const [countDown, setCountDown] = useState(
     countdownTime - new Date().getTime()    //Time left from target and now
   );
   useEffect(() => {
-    const interval = setInterval(() => {
+    const interval = start && setInterval(() => {
       setCountDown(prev => prev-1000);      //updating timer by decreasing 1000 as previously time was in MS
     }, 1000);
     console.log(countDown);
